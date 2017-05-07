@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+require './lib/route_parser.rb'
+
+begin
+  RouteParser.new(ARGV.first).run
+rescue StandardError => e
+  puts e
+end
