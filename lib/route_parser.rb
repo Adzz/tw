@@ -10,6 +10,8 @@ class RouteParser
 
   def parse
     CSV.foreach(file_path) do |row|
+      # add error handling here
+      # param argument validation
       start_station, end_station, distance, *rest = row.first.split('')
       route_info.add_route(start_station, end_station, distance.to_i)
     end
