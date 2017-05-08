@@ -29,6 +29,9 @@ RSpec.describe RouteInformation do
   end
 
   describe '#get_distance' do
+    let(:no_route_error) { RouteFinderError::NoSuchRoute }
+    let(:error_message) { 'NO SUCH ROUTE' }
+
     it 'returns the correct distance for a two destination route' do
       add_first_route
       expect(route_info.distance('A-B')).to eq 5
@@ -43,7 +46,7 @@ RSpec.describe RouteInformation do
 
     it 'returns NO SUCH ROUTE for a route that does not exist' do
       add_first_route
-      expect(route_info.distance('A-B-Z')).to eq 'NO SUCH ROUTE'
+      expect {route_info.distance('A-B-Z')}.to raise_error no_route_error, error_message
     end
   end
 

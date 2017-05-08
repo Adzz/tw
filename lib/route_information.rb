@@ -18,11 +18,27 @@ class RouteInformation
     get_total_distance(route.split('-'))
   end
 
+  def shortest_distance(from, to)
+    # find all routes from X - Y
+    # get the min distance.
+    # to optimise we can just discard any that's bigger than one that exists already
+    #
+  end
+
   private
 
   def get_total_distance(destinations, total_distance = [])
     return total_distance.inject(&:+) if destinations.count < 2
-    total_distance << routes.fetch(destinations[0]){return 'NO SUCH ROUTE'}.fetch(destinations[1]) { return 'NO SUCH ROUTE' }
+    total_distance << one_stop_distance(destinations[0], destinations[1])
     get_total_distance(destinations.drop(1), total_distance)
   end
+
+  def one_stop_distance(start, finish)
+    error = RouteFinderError::NoSuchRoute.new
+    routes.fetch(start) { raise error }.fetch(finish) { raise error }
+  end
 end
+
+
+# find all the ones starting at the starting station
+# find where they go,
