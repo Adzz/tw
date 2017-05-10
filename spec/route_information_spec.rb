@@ -1,4 +1,6 @@
 RSpec.describe RouteInformation do
+  let(:no_route_error) { RouteFinderError::NoSuchRoute }
+  let(:error_message) { 'NO SUCH ROUTE' }
   subject(:route_info) { described_class.new }
 
   describe '#add_route' do
@@ -29,9 +31,6 @@ RSpec.describe RouteInformation do
   end
 
   describe '#get_distance' do
-    let(:no_route_error) { RouteFinderError::NoSuchRoute }
-    let(:error_message) { 'NO SUCH ROUTE' }
-
     it 'returns the correct distance for a two destination route' do
       add_first_route
       expect(route_info.distance('A-B')).to eq 5
@@ -47,6 +46,28 @@ RSpec.describe RouteInformation do
     it 'returns NO SUCH ROUTE for a route that does not exist' do
       add_first_route
       expect {route_info.distance('A-B-Z')}.to raise_error no_route_error, error_message
+    end
+  end
+
+  describe '#shortest_distance' do
+    it 'returns the route distance for a direct route' do
+      add_first_route
+      expect(route_info.shortest_distance('A-B')).to eq 5
+    end
+
+    it 'riases a no route error if the requested route doesnt exist' do
+      expect {route_info.shortest_distance('A-B') }.to raise_error no_route_error, error_message
+    end
+
+    it 'will find the shortest route when there is no direct route' do
+      add_first_route
+      route_info.add_route("B", "C", 6)
+      route_info.add_route("A", "D", 10)
+      route_info.add_route("D", "C", 20)
+      route_info.add_route("D", "E", 20)
+      route_info.add_route("E", "C", 20)
+      route_info.add_route("C", "Z", 9)
+      expect(route_info.shortest_distance('A-C')).to eq 5
     end
   end
 
