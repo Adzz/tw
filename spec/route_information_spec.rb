@@ -55,10 +55,6 @@ RSpec.describe RouteInformation do
       expect(route_info.shortest_distance('A-B')).to eq 5
     end
 
-    it 'riases a no route error if the requested route doesnt exist' do
-      expect {route_info.shortest_distance('A-B') }.to raise_error no_route_error, error_message
-    end
-
     it 'will find the shortest route when there is no direct route' do
       add_first_route
       route_info.add_route("B", "C", 6)
@@ -67,7 +63,23 @@ RSpec.describe RouteInformation do
       route_info.add_route("D", "E", 20)
       route_info.add_route("E", "C", 20)
       route_info.add_route("C", "Z", 9)
-      expect(route_info.shortest_distance('A-C')).to eq 5
+      expect(route_info.shortest_distance('A-C')).to eq 11
+    end
+
+    it 'will be correct even if the shortest route has more stops' do
+      add_first_route
+      route_info.add_route("B", "C", 6)
+      route_info.add_route("A", "D", 1)
+      route_info.add_route("D", "Z", 1)
+      route_info.add_route("Z", "C", 1)
+      expect(route_info.shortest_distance('A-C')).to eq 3
+    end
+
+    it 'will find shortest route back to the same start station' do
+      add_first_route
+      route_info.add_route("B", "C", 6)
+      route_info.add_route("C", "A", 6)
+      expect(route_info.shortest_distance('A-A')).to eq 17
     end
   end
 
