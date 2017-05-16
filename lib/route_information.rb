@@ -20,6 +20,7 @@ class RouteInformation
 
   def shortest_distance(route)
     start_station, end_station, *rest = route.split('-')
+    binding.pry
     all_journeys_from_to(start_station, end_station).map(&method(:distance)).min
   end
 
@@ -33,9 +34,48 @@ class RouteInformation
     end
   end
 
+  def shortest_path(start, finish)
+      maxint = (2**(0.size * 8 -2) -1)
+      distances = {}
+      previous = {}
+      nodes = PriorityQueue.new
+
+      @routes.each do | vertex, value |
+          if vertex == start
+              distances[vertex] = 0
+              nodes[vertex] = 0
+          else
+              distances[vertex] = maxint
+              nodes[vertex] = maxint
+          end
+          previous[vertex] = nil
+      end
+
+      while nodes
+          smallest = nodes.delete_min_return_key
+
+          if smallest == nil or distances[smallest] == maxint
+              break
+          end
+
+          @routes[smallest].each do | neighbor, value |
+              alt = distances[smallest] + @routes[smallest][neighbor]
+              if alt < distances[neighbor]
+                  distances[neighbor] = alt
+                  previous[neighbor] = smallest
+                  nodes[neighbor] = alt
+              end
+          end
+      end
+      return distances.inspect
+  end
+
+
   def all_journeys_to(end_station, nodes = @routes, current_journey = [], all_journeys =[])
+    # when do we mark as visited?
     nodes.each do |node, _distance|
       current_journey  << "#{node}"
+      visited = {node => true}
 
       if leaf_node?(node)
         if current_journey.last == end_station
@@ -49,6 +89,7 @@ class RouteInformation
         current_journey << "#{end_station}"
         all_journeys << current_journey.dup
         current_journey.pop
+        next if visited[node]
       end
 
       all_journeys_to(end_station, routes[node], current_journey, all_journeys)
