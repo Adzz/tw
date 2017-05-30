@@ -2,13 +2,25 @@
 
 ### Problem one: *Trains*
 
-The local commuter railroad services a number of towns in Kiwiland.  Because of monetary concerns, all of the tracks are 'one-way.'  That is, a route from Kaitaia to Invercargill does not imply the existence of a route from Invercargill to Kaitaia.  In fact, even if both of these routes do happen to exist, they are distinct and are not necessarily the same distance!
+The local commuter railroad services a number of towns in Kiwiland.  Because of monetary concerns,
+all of the tracks are 'one-way.'  That is, a route from Kaitaia to Invercargill does not imply the
+existence of a route from Invercargill to Kaitaia.  In fact, even if both of these routes do happen
+to exist, they are distinct and are not necessarily the same distance!
 
-The purpose of this problem is to help the railroad provide its customers with information about the routes.  In particular, you will compute the distance along a certain route, the number of different routes between two towns, and the shortest route between two towns.
+The purpose of this problem is to help the railroad provide its customers with information about
+the routes.  In particular, you will compute the distance along a certain route, the number of
+different routes between two towns, and the shortest route between two towns.
 
-Input:  A directed graph where a node represents a town and an edge represents a route between two towns.  The weighting of the edge represents the distance between the two towns.  *A given route will never appear more than once, and for a given route, the starting and ending town will not be the same town.*
+Input:  A directed graph where a node represents a town and an edge represents a route between two
+towns.  The weighting of the edge represents the distance between the two towns.  *A given route
+will never appear more than once, and for a given route, the starting and ending town will not be
+the same town.*
 
-Output: For test input 1 through 5, if no such route exists, output 'NO SUCH ROUTE'.  Otherwise, follow the route as given; do not make any extra stops!  For example, the first problem means to start at city A, then travel directly to city B (a distance of 5), then directly to city C (a distance of 4).
+Output: For test input 1 through 5, if no such route exists, output 'NO SUCH ROUTE'.  Otherwise,
+follow the route as given; do not make any extra stops!  For example, the first problem means to
+start at city A, then travel directly to city B (a distance of 5), then directly to city C (a
+distance of 4).
+
 The distance of the route A-B-C.
 The distance of the route A-D.
 The distance of the route A-D-C.
@@ -37,7 +49,9 @@ Output #10: 7
 
 ### Problem Two: Conference *Track Management*
 
-You are planning a big programming conference and have received many proposals which have passed the initial screen process but you're having trouble fitting them into the time constraints of the day -- there are so many possibilities! So you write a program to do it for you.
+You are planning a big programming conference and have received many proposals which have passed the
+initial screen process but you're having trouble fitting them into the time constraints of the day
+-- there are so many possibilities! So you write a program to do it for you.
 The conference has multiple tracks each of which has a morning and afternoon session.
 Each session contains multiple talks.
 Morning sessions begin at 9am and must finish by 12 noon, for lunch.
@@ -47,7 +61,9 @@ No talk title has numbers in it.
 All talk lengths are either in minutes (not hours) or lightning (5 minutes).
 Presenters will be very punctual; there needs to be no gap between sessions.
 
-Note that depending on how you choose to complete this problem, your solution may give a different ordering or combination of talks into tracks. This is acceptable; you don't need to exactly duplicate the sample output given here.
+Note that depending on how you choose to complete this problem, your solution may give a different
+ordering or combination of talks into tracks. This is acceptable; you don't need to exactly
+duplicate the sample output given here.
 
 Test input:
 Writing Fast Tests Against Enterprise Rails 60min
@@ -101,11 +117,16 @@ Track 2:
 
 ### Problem Three: *Merchant's Guide to the Galaxy*
 
-You decided to give up on earth after the latest financial collapse left 99.99% of the earth's population with 0.01% of the wealth. Luckily, with the scant sum of money that is left in your account, you are able to afford to rent a spaceship, leave earth, and fly all over the galaxy to sell common metals and dirt (which apparently is worth a lot).
+You decided to give up on earth after the latest financial collapse left 99.99% of the earth's
+population with 0.01% of the wealth. Luckily, with the scant sum of money that is left in your
+account, you are able to afford to rent a spaceship, leave earth, and fly all over the galaxy to
+sell common metals and dirt (which apparently is worth a lot).
 
-Buying and selling over the galaxy requires you to convert numbers and units, and you decided to write a program to help you.
+Buying and selling over the galaxy requires you to convert numbers and units, and you decided to
+write a program to help you.
 
-The numbers used for intergalactic transactions follows similar convention to the roman numerals and you have painstakingly collected the appropriate translation between them.
+The numbers used for intergalactic transactions follows similar convention to the roman numerals and
+ you have painstakingly collected the appropriate translation between them.
 
 Roman numerals are based on seven symbols:
 

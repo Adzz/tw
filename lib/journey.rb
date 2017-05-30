@@ -19,7 +19,7 @@ class Journey
   end
 
   def find_stage_distance(start_station, end_station)
-    find_stage(start_station, end_station).map(&:distance)
+    find_stage(start_station, end_station).map(&:distance).inject(&:+)
   end
 
   def find_stage(start_station, end_station)
@@ -30,5 +30,9 @@ class Journey
 
   def <=>(other)
     total_distance <=> other.total_distance
+  end
+
+  def to_s
+    @stages.map(&:to_s).join('  -->  ')
   end
 end

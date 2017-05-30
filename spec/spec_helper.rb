@@ -5,7 +5,7 @@ Dir[File.join(File.dirname(__FILE__), "../lib/**/*.rb")].each { |f| require f }
 RSpec.configure do |config|
   config.shared_context_metadata_behavior = :apply_to_host_groups
   config.disable_monkey_patching!
-  config.warnings = true
+  config.warnings = false
   config.profile_examples = 1
   config.order = :random
 

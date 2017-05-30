@@ -1,3 +1,59 @@
+require 'pry'
+require_relative "priority_queue"
+
+class Dijkstra
+  def initialize(routes, source_station)
+    @routes = routes
+    @source_station = source_station
+    @path_to = {}
+    @distance_to = {}
+    @pq = PriorityQueue.new
+  end
+
+  def shortest_path_to(station)
+    binding.pry
+    compute_shortest_path
+
+    path = []
+    while station != @source_station
+      path.unshift(station)
+      station = @path_to[station]
+    end
+
+    path.unshift(@source_station)
+  end
+
+  private
+
+  def compute_shortest_path
+    update_distance_of_all_edges_to(Float::INFINITY)
+    @distance_to[@source_station] = 0
+
+    @pq.insert(@source_station, 0)
+    while @pq.any?
+      station = @pq.remove_min
+      station.destinations.each do |destination|
+        update_shortest_journey(destination)
+      end
+    end
+  end
+
+  def update_distance_of_all_edges_to(distance)
+    @routes.stations.each do |station|
+      @distance_to[station] = distance
+    end
+  end
+
+  def update_shortest_journey(stage)
+    return if @distance_to[stage.start_station] <= @distance_to[stage.end_station] + stage.distance
+
+    @distance_to[stage.start_station] = @distance_to[stage.end_station] + stage.distance
+    @path_to[stage.start_station] = stage.end_station
+    @pq.insert(stage.start_station, @distance_to[stage.start_station])
+  end
+end
+
+
 class RouteInformation
   attr_reader :routes
 
@@ -32,42 +88,6 @@ class RouteInformation
     end.map do |journey|
       journey.join('-')
     end
-  end
-
-  def shortest_path(start, finish)
-      maxint = (2**(0.size * 8 -2) -1)
-      distances = {}
-      previous = {}
-      nodes = PriorityQueue.new
-
-      @routes.each do | vertex, value |
-          if vertex == start
-              distances[vertex] = 0
-              nodes[vertex] = 0
-          else
-              distances[vertex] = maxint
-              nodes[vertex] = maxint
-          end
-          previous[vertex] = nil
-      end
-
-      while nodes
-          smallest = nodes.delete_min_return_key
-
-          if smallest == nil or distances[smallest] == maxint
-              break
-          end
-
-          @routes[smallest].each do | neighbor, value |
-              alt = distances[smallest] + @routes[smallest][neighbor]
-              if alt < distances[neighbor]
-                  distances[neighbor] = alt
-                  previous[neighbor] = smallest
-                  nodes[neighbor] = alt
-              end
-          end
-      end
-      return distances.inspect
   end
 
 
